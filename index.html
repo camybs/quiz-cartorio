@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title># 🎯 Quiz - Cartório. Você vai receber situações reais do cartório, e sua missão é responder como se fosse a funcionária do mês! Bora?</title>
+    <title>📝 QUIZ - CARTÓRIO | Teste seus conhecimentos notariais</title>
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
     <style>
         :root {
             --primary: #2c3e50;
@@ -25,10 +25,20 @@
             background-color: #f9f9f9;
         }
         
-        h1 {
-            color: var(--primary);
+        .header {
             text-align: center;
             margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .subtitle {
+            color: var(--secondary);
+            font-size: 1.1em;
+            margin-top: 0;
             padding-bottom: 15px;
             border-bottom: 2px solid var(--secondary);
         }
@@ -173,7 +183,10 @@
     </style>
 </head>
 <body>
-    <h1>Quiz Avançado - Cartório de Notas</h1>
+    <div class="header">
+        <h1>📝 QUIZ - CARTÓRIO</h1>
+        <p class="subtitle">Você vai receber situações reais do cartório, e sua missão é responder como se fosse a funcionária do mês! Bora?</p>
+    </div>
     
     <div class="quiz-container">
         <form id="quizForm">
@@ -336,6 +349,12 @@
     <script>
         document.getElementById("quizForm").addEventListener("submit", function(e) {
             e.preventDefault();
+            
+            // Resetar estilos das opções
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.style.backgroundColor = '';
+                opt.style.color = '';
+            });
             
             // Respostas corretas
             const correctAnswers = {
