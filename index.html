@@ -1,2 +1,426 @@
 # 🎯 Quiz - Cartório Você vai receber situações reais do cartório, e sua missão é responder como se fosse a funcionária do mês! Bora?
-http://localhost:9898/Local/QUIZ%20INTERATIVO.html?E1E7879A-F84F-448D-8F23-45B89019E41C
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Avançado - Cartório de Notas</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --correct: #27ae60;
+            --incorrect: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        .quiz-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .question {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-left: 4px solid var(--secondary);
+            background-color: var(--light);
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .question:hover {
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .question p {
+            font-weight: 600;
+            margin-top: 0;
+            color: var(--dark);
+            font-size: 18px;
+        }
+        
+        .options {
+            margin-top: 15px;
+        }
+        
+        .option {
+            display: block;
+            margin: 10px 0;
+            padding: 12px 15px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .option:hover {
+            background: #f0f0f0;
+            border-color: var(--secondary);
+        }
+        
+        .option input {
+            margin-right: 10px;
+        }
+        
+        button {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: background-color 0.3s;
+            font-weight: 600;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 18px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .correct-answer {
+            background-color: var(--correct);
+            color: white;
+        }
+        
+        .incorrect-answer {
+            background-color: var(--incorrect);
+            color: white;
+        }
+        
+        .neutral {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #e8f4fc;
+            border-left: 4px solid var(--secondary);
+            border-radius: 0 5px 5px 0;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background-color: #e8f8f0;
+            border-left-color: var(--correct);
+        }
+        
+        .feedback.incorrect {
+            background-color: #fdecea;
+            border-left-color: var(--incorrect);
+        }
+        
+        .score-display {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: var(--primary);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .question-number {
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quiz Avançado - Cartório de Notas</h1>
+    
+    <div class="quiz-container">
+        <form id="quizForm">
+            <!-- Questão 1 -->
+            <div class="question">
+                <span class="question-number">Questão 1/10</span>
+                <p>Qual é a principal diferença entre cartórios judiciais e extrajudiciais?</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q1" value="a"> Judiciais realizam casamentos, extrajudiciais fazem divórcios</label>
+                    <label class="option"><input type="radio" name="q1" value="b"> Judiciais auxiliam o Poder Judiciário, extrajudiciais prestam serviços ao público</label>
+                    <label class="option"><input type="radio" name="q1" value="c"> Não há diferença, os termos são sinônimos</label>
+                    <label class="option"><input type="radio" name="q1" value="d"> Judiciais cuidam de imóveis, extrajudiciais de veículos</label>
+                </div>
+                <div class="feedback" id="feedback1">
+                    <strong>Resposta correta:</strong> Judiciais auxiliam o Poder Judiciário em processos judiciais, enquanto extrajudiciais (também chamados de serviços notariais e de registro) prestam serviços ao público em geral.
+                </div>
+            </div>
+            
+            <!-- Questão 2 -->
+            <div class="question">
+                <span class="question-number">Questão 2/10</span>
+                <p>Qual documento NÃO é tipicamente lavrado em um Cartório de Notas?</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q2" value="a"> Escritura pública de compra e venda</label>
+                    <label class="option"><input type="radio" name="q2" value="b"> Procuração pública</label>
+                    <label class="option"><input type="radio" name="q2" value="c"> Registro de matrícula de imóvel</label>
+                    <label class="option"><input type="radio" name="q2" value="d"> Testamento público</label>
+                </div>
+                <div class="feedback" id="feedback2">
+                    <strong>Resposta correta:</strong> Registro de matrícula de imóvel - esta é função do Cartório de Registro de Imóveis, enquanto o Cartório de Notas lida com a lavratura de documentos como escrituras públicas, procurações e testamentos.
+                </div>
+            </div>
+            
+            <!-- Questão 3 -->
+            <div class="question">
+                <span class="question-number">Questão 3/10</span>
+                <p>Qual é o prazo máximo de validade para uma certidão de casamento apresentada para lavratura de escritura?</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q3" value="a"> 30 dias</label>
+                    <label class="option"><input type="radio" name="q3" value="b"> 60 dias</label>
+                    <label class="option"><input type="radio" name="q3" value="c"> 90 dias</label>
+                    <label class="option"><input type="radio" name="q3" value="d"> 180 dias</label>
+                </div>
+                <div class="feedback" id="feedback3">
+                    <strong>Resposta correta:</strong> 90 dias - Certidões de registro civil (nascimento, casamento) devem estar atualizadas, emitidas há no máximo 90 dias.
+                </div>
+            </div>
+            
+            <!-- Questão 4 -->
+            <div class="question">
+                <span class="question-number">Questão 4/10</span>
+                <p>Qual destes NÃO é um tipo de reconhecimento de firma?</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q4" value="a"> Por semelhança</label>
+                    <label class="option"><input type="radio" name="q4" value="b"> Por autenticidade</label>
+                    <label class="option"><input type="radio" name="q4" value="c"> Por procuração</label>
+                    <label class="option"><input type="radio" name="q4" value="d"> Por verdadeiro</label>
+                </div>
+                <div class="feedback" id="feedback4">
+                    <strong>Resposta correta:</strong> Por procuração - Os tipos de reconhecimento são por semelhança (comparação com ficha de firma) e por autenticidade/verdadeiro (comparecimento pessoal).
+                </div>
+            </div>
+            
+            <!-- Questão 5 -->
+            <div class="question">
+                <span class="question-number">Questão 5/10</span>
+                <p>Qual documento é obrigatório para escritura de compra e venda de imóvel urbano?</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q5" value="a"> Certidão de Matrícula atualizada (30 dias)</label>
+                    <label class="option"><input type="radio" name="q5" value="b"> Certidão de Casamento dos envolvidos</label>
+                    <label class="option"><input type="radio" name="q5" value="c"> Comprovante de renda do comprador</label>
+                    <label class="option"><input type="radio" name="q5" value="d"> Contrato de financiamento aprovado</label>
+                </div>
+                <div class="feedback" id="feedback5">
+                    <strong>Resposta correta:</strong> Certidão de Matrícula atualizada (30 dias) - É documento essencial para qualquer transação com imóveis, com validade de 30 dias.
+                </div>
+            </div>
+            
+            <!-- Questão 6 -->
+            <div class="question">
+                <span class="question-number">Questão 6/10</span>
+                <p>No regime de comunhão parcial de bens, o que acontece com os bens adquiridos antes do casamento?</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q6" value="a"> Tornam-se comuns ao casal</label>
+                    <label class="option"><input type="radio" name="q6" value="b"> Permanecem como propriedade particular</label>
+                    <label class="option"><input type="radio" name="q6" value="c"> Devem ser registrados em cartório</label>
+                    <label class="option"><input type="radio" name="q6" value="d"> São automaticamente doados ao cônjuge</label>
+                </div>
+                <div class="feedback" id="feedback6">
+                    <strong>Resposta correta:</strong> Permanecem como propriedade particular - No regime de comunhão parcial, os bens anteriores ao casamento permanecem particulares (art. 1.658 e 1.659 CC).
+                </div>
+            </div>
+            
+            <!-- Questão 7 -->
+            <div class="question">
+                <span class="question-number">Questão 7/10</span>
+                <p>O que é necessário para que um documento estrangeiro seja aceito em cartório brasileiro?</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q7" value="a"> Apenas tradução juramentada</label>
+                    <label class="option"><input type="radio" name="q7" value="b"> Legalização/apostila + tradução juramentada + registro no RTD</label>
+                    <label class="option"><input type="radio" name="q7" value="c"> Assinatura do cônsul do país de origem</label>
+                    <label class="option"><input type="radio" name="q7" value="d"> Autenticação por dois tabeliães</label>
+                </div>
+                <div class="feedback" id="feedback7">
+                    <strong>Resposta correta:</strong> Legalização/apostila + tradução juramentada + registro no RTD - Documentos estrangeiros precisam passar por esses três passos para produzir efeitos no Brasil.
+                </div>
+            </div>
+            
+            <!-- Questão 8 -->
+            <div class="question">
+                <span class="question-number">Questão 8/10</span>
+                <p>Qual sistema permite consultar a indisponibilidade de bens?</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q8" value="a"> SIPLAN</label>
+                    <label class="option"><input type="radio" name="q8" value="b"> CNJ - https://indisponibilidade.cnj.jus.br</label>
+                    <label class="option"><input type="radio" name="q8" value="c"> Receita Federal</label>
+                    <label class="option"><input type="radio" name="q8" value="d"> Bacen</label>
+                </div>
+                <div class="feedback" id="feedback8">
+                    <strong>Resposta correta:</strong> CNJ - https://indisponibilidade.cnj.jus.br - É o sistema oficial para consulta de indisponibilidade de bens determinada pelo Poder Judiciário.
+                </div>
+            </div>
+            
+            <!-- Questão 9 -->
+            <div class="question">
+                <span class="question-number">Questão 9/10</span>
+                <p>Qual é a expressão típica usada ao final de atos notariais?</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q9" value="a"> "Para que conste"</label>
+                    <label class="option"><input type="radio" name="q9" value="b"> "O referido é verdade e dou fé"</label>
+                    <label class="option"><input type="radio" name="q9" value="c"> "Certifico e confirmo"</label>
+                    <label class="option"><input type="radio" name="q9" value="d"> "Assim está correto"</label>
+                </div>
+                <div class="feedback" id="feedback9">
+                    <strong>Resposta correta:</strong> "O referido é verdade e dou fé" - Esta expressão afirma a presunção de veracidade dos atos notariais pela fé pública investida no tabelião.
+                </div>
+            </div>
+            
+            <!-- Questão 10 -->
+            <div class="question">
+                <span class="question-number">Questão 10/10</span>
+                <p>Qual destes NÃO é um dever ético do tabelião ou escrevente?</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q10" value="a"> Sigilo profissional</label>
+                    <label class="option"><input type="radio" name="q10" value="b"> Imparcialidade</label>
+                    <label class="option"><input type="radio" name="q10" value="c"> Divulgar detalhes de atos em redes sociais</label>
+                    <label class="option"><input type="radio" name="q10" value="d"> Responsabilidade civil e criminal</label>
+                </div>
+                <div class="feedback" id="feedback10">
+                    <strong>Resposta correta:</strong> Divulgar detalhes de atos em redes sociais - O sigilo profissional é fundamental, e a divulgação de informações não autorizadas configura violação ética.
+                </div>
+            </div>
+            
+            <button type="submit">Verificar Respostas</button>
+        </form>
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById("quizForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            // Respostas corretas
+            const correctAnswers = {
+                q1: "b",
+                q2: "c",
+                q3: "c",
+                q4: "c",
+                q5: "a",
+                q6: "b",
+                q7: "b",
+                q8: "b",
+                q9: "b",
+                q10: "c"
+            };
+            
+            let score = 0;
+            let unanswered = 0;
+            const totalQuestions = 10;
+            
+            // Verificar respostas e mostrar feedback
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionName = "q" + i;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                const feedback = document.getElementById(`feedback${i}`);
+                
+                if (!selectedOption) {
+                    unanswered++;
+                    if (feedback) {
+                        feedback.style.display = "none";
+                    }
+                    continue;
+                }
+                
+                // Mostrar feedback
+                if (feedback) {
+                    feedback.style.display = "block";
+                    if (selectedOption.value === correctAnswers[questionName]) {
+                        feedback.classList.add("correct");
+                        feedback.classList.remove("incorrect");
+                    } else {
+                        feedback.classList.add("incorrect");
+                        feedback.classList.remove("correct");
+                    }
+                }
+                
+                // Marcar opção correta
+                const correctOption = document.querySelector(`input[name="${questionName}"][value="${correctAnswers[questionName]}"]`);
+                if (correctOption) {
+                    correctOption.parentElement.style.backgroundColor = "#27ae60";
+                    correctOption.parentElement.style.color = "white";
+                }
+                
+                // Contar pontos
+                if (selectedOption.value === correctAnswers[questionName]) {
+                    score++;
+                } else {
+                    selectedOption.parentElement.style.backgroundColor = "#e74c3c";
+                    selectedOption.parentElement.style.color = "white";
+                }
+            }
+            
+            // Mostrar resultado
+            const resultDiv = document.getElementById("result");
+            let message = "";
+            
+            if (unanswered > 0) {
+                message += `<div class="neutral">Você deixou ${unanswered} pergunta(s) sem responder.</div>`;
+            }
+            
+            message += `<div class="score-display">Pontuação: ${score} de ${totalQuestions}</div>`;
+            
+            if (score >= totalQuestions * 0.8) {
+                message += `<div class="correct-answer">Excelente! Domínio avançado dos temas notariais.</div>`;
+            } else if (score >= totalQuestions * 0.5) {
+                message += `<div class="neutral">Bom trabalho! Continue estudando para aprimorar seu conhecimento.</div>`;
+            } else {
+                message += `<div class="incorrect-answer">Recomenda-se revisar os módulos do material para reforçar o aprendizado.</div>`;
+            }
+            
+            resultDiv.innerHTML = message;
+            resultDiv.style.display = "block";
+            
+            // Rolagem suave para o resultado
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
