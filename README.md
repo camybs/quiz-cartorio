@@ -312,10 +312,10 @@
         const questions = [
             {
                 id: 1,
-                question: "Qual é a principal diferença entre cartórios judiciais e extrajudiciais?",
+                question: "Cite as principais diferenças entre cartórios: judiciais x extrajudiciais e registro x notas?",
                 options: [
                     { text: "Judiciais realizam casamentos, extrajudiciais fazem divórcios", value: "a" },
-                    { text: "Judiciais auxiliam o Poder Judiciário, extrajudiciais prestam serviços ao público", value: "b", correct: true },
+                    { text: "Judiciais auxiliam o Poder Judiciário, extrajudiciais prestam serviços ao público em geral; Registro é onde feito o registro do ato na Matricula e Notas é onde é realizado o ato", value: "b", correct: true },
                     { text: "Não há diferença, os termos são sinônimos", value: "c" },
                     { text: "Judiciais cuidam de imóveis, extrajudiciais de veículos", value: "d" }
                 ],
